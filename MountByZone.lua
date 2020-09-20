@@ -1,29 +1,16 @@
-----------------------------------------------------------------------
+--[[-------------------------------------------------------------------------
 -- 	Mount By Zone 0.0.02 (September 20, 2020)
---  Author: Jonathan Stregger
-----------------------------------------------------------------------
+--
+--  Copyright (c) 2019-2020, Jonathan Stregger
+--  All rights reserved.
+-------------------------------------------------------------------------]]--
 
-
-function GetContinent()
-    local mapID = C_Map.GetBestMapForUnit("player")
-    local thisMapCont = { id=5, cont=""}
-    while thisMapCont.id > 2 and thisMapCont.id ~= 2 do
-        local mapDetails = C_Map.GetMapInfo(mapID)
-        thisMapCont.id = mapDetails.mapType
-        thisMapCont.cont = mapDetails.name
-        mapID = mapDetails.parentMapID
-    end
-    if thisMapCont.id == 2 then
-        return thisMapCont.cont
-    else
-        return nil
-    end
-end
+--[[-------------------------------------------------------------------------
+-- Set defualts
+-------------------------------------------------------------------------]]--
 
 --Global Mounts
-local Ground = {"Kor'kron War Wolf", "Beastlord's Warwolf", "Ironside Warwolf", "Lionthien Prowler",
-    "Scrapforged Mechaspider", "X-995 Mechanocat", "Warlord's Deathwheel", "Raven Lord", "Great Northern Elderhorn",
-    "Highmountain Thunderhoof", "Spirit of Eche'ro", "Kor'kron Annihilator", "Core Hound"}
+local Ground = {"Kor'kron War Wolf", "Beastlord's Warwolf", "Ironside Warwolf", "Lionthien Prowler", "Scrapforged Mechaspider", "X-995 Mechanocat", "Warlord's Deathwheel", "Raven Lord", "Great Northern Elderhorn", "Highmountain Thunderhoof", "Spirit of Eche'ro", "Kor'kron Annihilator", "Core Hound"}
 local Flying = {"Spawn of Galakras", "Dread Raven", "Grand Armored Wyvern", "Obsidian Worldbreaker"}
 local Swimming = {"Brinedeep Bottom-Feeder", "Crimson Tidestallion", "Sea Turtle", "Darkwater Skate"}
 local GlobalMounts = {gnd = Ground,  fly = Flying, swim = Swimming}
@@ -49,8 +36,7 @@ local KulTiras = {name = "Kul Tiras", gnd = GroundBFA, fly = FlyBFA, swim = nil,
 local BrokenGnd = {"Lionthien Prowler", "Great Northern Elderhorn","Highmountain Thunderhoof", "Spirit of Eche'ro",
     "Nightbourne Manasaber"}
 local BrokenFly = {"Leywoven Flying Carpet", "Vibrant Mana Ray", "Scintillating Mana Ray", "Felglow Mana Ray"}
-local GroundArgus = {"Amethyst Ruinstrider", "Beryl Ruinstrider", "Bleakhoof Ruinstrider", "Cerulean Ruinstrider", 
-    "Russet Ruinstrider", "Sable Ruinstrider", "Umber Ruinstrider"}
+local GroundArgus = {"Amethyst Ruinstrider", "Beryl Ruinstrider", "Bleakhoof Ruinstrider", "Cerulean Ruinstrider", "Russet Ruinstrider", "Sable Ruinstrider", "Umber Ruinstrider"}
 local Argus = {name = "Argus", gnd = GroundArgus, fly = nil, swim = nil}
 local BrokenIsles = {name = "Broken Isles", gnd = nil, fly = nil, swim = nil, zones = {Argus}}
 
@@ -67,12 +53,8 @@ local Kalimdor = {name = "Kalimdor", gnd = nil, fly = nil, swim = nil, zones = n
 local EasternKingdoms = {name = "Eastern Kingdoms", gnd = nil, fly = nil, swim = nil, zones = nil}
 
 --Pandaria
-local GroundPanda = {"Blonde Riding Yak", "Grey Riding Yak", "Great Black Dragon Turtle", "Great Blue Dragon Turtle", 
-"Great Brown Dragon Turtle", "Great Green Dragon Turtle", "Great Purple Dragon Turtle", "Great Red Dragon Turtle", 
-"Golden Riding Crane", "Azure Riding Crane", "Regal Riding Crane"}
-local FlyPanda = {"Crimson Cloud Serpent", "Heavenly Azure Cloud Serpent", "Heavenly Golden Cloud Serpent",
-"Thundering Jade Cloud Serpent", "Thundering Onyx Cloud Serpent", "Thundering August Cloud Serpent",
-"Yu'lei, Daughter of Jade", "Pandaren Kite"}
+local GroundPanda = {"Blonde Riding Yak", "Grey Riding Yak", "Great Black Dragon Turtle", "Great Blue Dragon Turtle", "Great Brown Dragon Turtle", "Great Green Dragon Turtle", "Great Purple Dragon Turtle", "Great Red Dragon Turtle", "Golden Riding Crane", "Azure Riding Crane", "Regal Riding Crane"}
+local FlyPanda = {"Crimson Cloud Serpent", "Heavenly Azure Cloud Serpent", "Heavenly Golden Cloud Serpent", "Thundering Jade Cloud Serpent", "Thundering Onyx Cloud Serpent", "Thundering August Cloud Serpent", "Yu'lei, Daughter of Jade", "Pandaren Kite"}
 local Pandaria = {name = "Pandaria", gnd = GroundPanda, fly = FlyPanda, swim = nil,  zones = nil}
 
 --Anh'Qiraj
@@ -84,10 +66,27 @@ local Nazjatar = {"Brinedeep Bottom-Feeder"}
 --Continents
 local Continents = {Zandalar, KulTiras, BrokenIsles, Pandaria, Draenor, Northrend, Kalimdor, EasternKingdoms}
 
-local prevWeapons
-
 --Zones with mapType > 3 that are actually flyable
 local liarZones = {"Dazar'alor", "Dalaran"}
+
+--[[-------------------------------------------------------------------------
+--  Get the current continent
+-------------------------------------------------------------------------]]--
+function GetContinent()
+    local mapID = C_Map.GetBestMapForUnit("player")
+    local thisMapCont = { id=5, cont=""}
+    while thisMapCont.id > 2 and thisMapCont.id ~= 2 do
+        local mapDetails = C_Map.GetMapInfo(mapID)
+        thisMapCont.id = mapDetails.mapType
+        thisMapCont.cont = mapDetails.name
+        mapID = mapDetails.parentMapID
+    end
+    if thisMapCont.id == 2 then
+        return thisMapCont.cont
+    else
+        return nil
+    end
+end
 
 --Detects a zone where the mapType > 3, but is flyable
 function IsLiarZone(zone)
@@ -218,13 +217,7 @@ end
 
 SLASH_MOUNTBYZONE1 = '/mbz'
 function SlashCmdList.MOUNTBYZONE(msg, editBox)
-    if msg == "info" then
-        local map = C_Map.GetMapInfo(C_Map.GetBestMapForUnit("PLAYER"))
-        while map.mapID ~= 0 do
-            print(map.mapID .. " " .. map.name .. " " .. map.mapType .. " " .. map.parentMapID)
-            map = C_Map.GetMapInfo(map.parentMapID)
-        end
-    elseif class_name == "Druid" then
+    if class_name == "Druid" then
         CastSpellByName("Travel Form")
     elseif not IsFlying() or (IsFlying() and IsModifierKeyDown()) then
         local mount = GetMount()
@@ -241,12 +234,19 @@ end
 SLASH_QUEST1 = '/q'
 function SlashCmdList.QUEST(msg, editBox)
     if type(msg) ~= "nil" then
-        local message = "Quest " .. msg
         if IsQuestFlaggedCompleted(msg) then
-            message =  message .. " has been completed"
+            print("Quest " .. msg .. " has been completed")
         else
-            message = message .. " has NOT been completed"
+            print("Quest " .. msg .. " has NOT been completed")
         end
-        print(message)
+    end
+end
+
+SLASH_ZONE1 = '/zone'
+function SlashCmdList.ZONE(msg, editBox)
+    local map = C_Map.GetMapInfo(C_Map.GetBestMapForUnit("PLAYER"))
+    while map ~= nil and map.mapID ~= 0 do
+        print('ID:' .. map.mapID .. " Name: " .. map.name .. " Type: " .. map.mapType .. " Parent ID:" .. map.parentMapID)
+        map = C_Map.GetMapInfo(map.parentMapID)
     end
 end
