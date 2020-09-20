@@ -1,5 +1,5 @@
 ----------------------------------------------------------------------
--- 	Mount By Zone 0.0.01 (July 9, 2019)
+-- 	Mount By Zone 0.0.02 (September 20, 2020)
 --  Author: Jonathan Stregger
 ----------------------------------------------------------------------
 
@@ -216,8 +216,8 @@ function GetMount()
     return mount
 end
 
-SLASH_MOUNTBYZONE1 = "/mbz";
-SlashCmdList["MOUNTBYZONE"] = function(msg)
+SLASH_MOUNTBYZONE1 = '/mbz'
+function SlashCmdList.MOUNTBYZONE(msg, editBox)
     if msg == "info" then
         local map = C_Map.GetMapInfo(C_Map.GetBestMapForUnit("PLAYER"))
         while map.mapID ~= 0 do
@@ -235,5 +235,18 @@ SlashCmdList["MOUNTBYZONE"] = function(msg)
         else
             CastSpellByName("Ironside Warwolf")
         end
+    end
+end
+
+SLASH_QUEST1 = '/q'
+function SlashCmdList.QUEST(msg, editBox)
+    if type(msg) ~= "nil" then
+        local message = "Quest " .. msg
+        if IsQuestFlaggedCompleted(msg) then
+            message =  message .. " has been completed"
+        else
+            message = message .. " has NOT been completed"
+        end
+        print(message)
     end
 end
