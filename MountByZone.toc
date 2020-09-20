@@ -1,8 +1,8 @@
-## Interface: 80000
+## Interface: 80300
 ## Title: Mount By Zone
 ## Notes: Choose mounts for different zones.
 ## Version: 0.0.1
-## Author: Zaevul
+## Author: Jonathan Stregger
 ## DefaultState: enabled
 
 MountByZone.lua
