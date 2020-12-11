@@ -10,7 +10,7 @@
 -------------------------------------------------------------------------]]--
 
 --Global Mounts
-local Ground = {"Kor'kron War Wolf", "Beastlord's Warwolf", "Ironside Warwolf", "Lionthien Prowler", "Scrapforged Mechaspider", "X-995 Mechanocat", "Warlord's Deathwheel", "Raven Lord", "Great Northern Elderhorn", "Highmountain Thunderhoof", "Spirit of Eche'ro", "Kor'kron Annihilator", "Core Hound"}
+local Ground = {"Kor'kron War Wolf", "Beastlord's Warwolf", "Ironside Warwolf", "Lionthien Prowler", "Scrapforged Mechaspider", "X-995 Mechanocat", "Warlord's Deathwheel", "Raven Lord", "Great Northern Elderhorn", "Highmountain Thunderhoof", "Spirit of Eche'ro", "Kor'kron Annihilator", "Core Hound", "War-Bred Tauralus"}
 local Flying = {"Spawn of Galakras", "Dread Raven", "Grand Armored Wyvern", "Obsidian Worldbreaker"}
 local Swimming = {"Brinedeep Bottom-Feeder", "Crimson Tidestallion", "Sea Turtle", "Darkwater Skate"}
 local GlobalMounts = {gnd = Ground,  fly = Flying, swim = Swimming}
@@ -63,11 +63,15 @@ local AhnQiraj = {"Blue Qiraji Battle Tank", "Green Qiraji Battle Tank", "Red Qi
 --Nazjatar
 local Nazjatar = {"Brinedeep Bottom-Feeder"}
 
+--Shadowlands
+local Shadowlands = {name = "The Shadowlands", gnd = {"War-Bred Tauralus"}, fly = nil, swim = nil, zones = nil}
+
 --Continents
-local Continents = {Zandalar, KulTiras, BrokenIsles, Pandaria, Draenor, Northrend, Kalimdor, EasternKingdoms}
+local Continents = {Zandalar, KulTiras, BrokenIsles, Pandaria, Draenor, Northrend, Kalimdor, EasternKingdoms, Shadowlands}
 
 --Zones with mapType > 3 that are actually flyable
-local liarZones = {"Dazar'alor", "Dalaran"}
+local liarZones = {"Dazar'alor", "Dalaran", "Oribos"}
+
 
 --[[-------------------------------------------------------------------------
 --  Get the current continent
