@@ -1,7 +1,7 @@
 ## Interface: 90002
 ## Title: Mount By Zone
 ## Notes: Choose mounts for different zones.
-## Version: 0.0.1
+## Version: 0.0.2
 ## Author: Jonathan Stregger
 ## DefaultState: enabled
 

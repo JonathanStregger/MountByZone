@@ -64,7 +64,7 @@ local AhnQiraj = {"Blue Qiraji Battle Tank", "Green Qiraji Battle Tank", "Red Qi
 local Nazjatar = {"Brinedeep Bottom-Feeder"}
 
 --Shadowlands
-local Shadowlands = {name = "The Shadowlands", gnd = {"War-Bred Tauralus"}, fly = nil, swim = nil, zones = nil}
+local Shadowlands = {name = "The Shadowlands", gnd = {"War-Bred Tauralus", "Armoured War-Bred Tauralus"}, fly = nil, swim = nil, zones = nil}
 
 --Continents
 local Continents = {Zandalar, KulTiras, BrokenIsles, Pandaria, Draenor, Northrend, Kalimdor, EasternKingdoms, Shadowlands}
